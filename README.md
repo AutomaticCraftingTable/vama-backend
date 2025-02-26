@@ -2,7 +2,8 @@
 
 ## Database scheme
 ### Visual representation
-![image](https://github.com/user-attachments/assets/44e5291c-adb4-423f-a7c8-c1704cc668de)
+![image](https://github.com/user-attachments/assets/c3e6d560-2b8b-4e83-acaf-8dee3a8ce93a)
+
 
 ### DBML representation
 ```sql
@@ -18,10 +19,8 @@ Table Subscription {
 /*
 one user can leave many likes (one like under many articles)
 one article has many likes
-
-the name `LikeReaction` like was chosen in fear of SQL's `LIKE` keyword collision
 */
-Table LikeReaction {
+Table ArticleLike {
   user_id int [ref: > User.id]
   article_id int [ref: > Article.id]
 }
@@ -48,14 +47,16 @@ Table Article {
 
 Table User {
   id int [primary key]
-  username varchar
-  email varchar
+  username varchar [unique]
+  email varchar [unique]
   password varchar
-  role varchar
+  role enum('user', 'admin', 'superadmin')
+  email_verified_at timestamp
+  created_at timestamp
+  updated_at timestamp
 }
 
 Table Profile {
-  id int [primary key]
   user_id int [ref: - User.id]
   description text [null]
   logo varchar [null]
