@@ -2,11 +2,12 @@
 
 ## Database scheme
 ### Visual representation
-![image](https://github.com/user-attachments/assets/c3e6d560-2b8b-4e83-acaf-8dee3a8ce93a)
+![image](https://github.com/user-attachments/assets/28256937-ff9b-4b40-a674-932a16e6bf7c)
 
 
 ### DBML representation
 ```sql
+/*
 /*
 one user can have many subscriptions (to many authors)
 one author has many subscriptions (of many users)
@@ -19,8 +20,10 @@ Table Subscription {
 /*
 one user can leave many likes (one like under many articles)
 one article has many likes
+
+the name `LikeReaction` like was chosen in fear of SQL's `LIKE` keyword collision
 */
-Table ArticleLike {
+Table LikeReaction {
   user_id int [ref: > User.id]
   article_id int [ref: > Article.id]
 }
